@@ -38,6 +38,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 	}
 
 	@Override
+	public NguoiDung findByEmailFetchVaiTro(String email) {
+		return nguoiDungRepo.findByEmailFetchVaiTro(email);
+	}
+
+	@Override
 	public NguoiDung findByConfirmationToken(String confirmationToken) {
 		return null;
 	}

@@ -6,7 +6,7 @@
 		</head>
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var priceConvert = accounting.formatMoney(${ sp.getDonGia() }) + ' VND';
+				var priceConvert = accounting.formatMoney("${sp.getDonGia()}") + ' VND';
 				document.getElementById("priceConvert").innerHTML = priceConvert;
 
 			});
@@ -61,7 +61,42 @@
 						</div>
 					</div>
 				</div>
+				<div class="card">
+					<div class="container-fliud">
+						<div class="wrapper row">
+							<div class="col-md-12">
+								<h3>Đánh giá & Nhận xét</h3>
+								<c:if test="${not empty loggedInUser}">
+									<c:set var="isAdmin" value="${pageContext.request.isUserInRole('ROLE_ADMIN')}" />
+									<p id="isAdminFlag" style="display:none;">${isAdmin}</p>
+								</c:if>
+								<div id="rating-summary" style="margin:8px 0;">
+									<span><b>Điểm trung bình:</b> <span id="avgRating">${sp.ratingAverage}</span> (<span
+											id="ratingCount">${sp.ratingCount}</span> đánh giá)</span>
+								</div>
+								<div id="comment-form" style="margin:12px 0;">
+									<label for="starRating">Chọn số sao:</label>
+									<select id="starRating" class="form-control"
+										style="width:120px; display:inline-block;">
+										<option value="5">5 ★</option>
+										<option value="4">4 ★</option>
+										<option value="3">3 ★</option>
+										<option value="2">2 ★</option>
+										<option value="1">1 ★</option>
+									</select>
+									<textarea id="commentContent" class="form-control" rows="3"
+										placeholder="Chia sẻ cảm nhận của bạn..."></textarea>
+									<br>
+									<button id="submitComment" class="btn btn-primary">Gửi đánh giá</button>
+								</div>
+								<div id="commentsList"></div>
+								<div id="commentsPager" style="margin-top:8px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</body>
 
 		<script src="<c:url value='/js/client/detailspAjax.js'/>"></script>
+		<script src="<c:url value='/js/client/productComments.js'/>"></script>

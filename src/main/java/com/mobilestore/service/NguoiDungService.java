@@ -13,6 +13,8 @@ public interface NguoiDungService {
 
 	NguoiDung findByEmail(String email);
 
+	NguoiDung findByEmailFetchVaiTro(String email);
+
 	NguoiDung findByConfirmationToken(String confirmationToken);
 
 	NguoiDung saveUserForMember(NguoiDung nd);

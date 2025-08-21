@@ -32,6 +32,11 @@ public class SanPham {
 	private String thietKe;
 	private String dungLuongPin;
 	
+	// Rating and sales fields
+	private Integer ratingCount = 0;
+	private Integer ratingSum = 0;
+	private Long salesCount = 0L;
+	
 	@Transient
 	@JsonIgnore
 	private MultipartFile hinhAnh;
@@ -171,6 +176,39 @@ public class SanPham {
 
 	public void setHinhAnh(MultipartFile hinhAnh) {
 		this.hinhAnh = hinhAnh;
+	}
+
+	// Rating and sales getters and setters
+	public Integer getRatingCount() {
+		return ratingCount;
+	}
+
+	public void setRatingCount(Integer ratingCount) {
+		this.ratingCount = ratingCount;
+	}
+
+	public Integer getRatingSum() {
+		return ratingSum;
+	}
+
+	public void setRatingSum(Integer ratingSum) {
+		this.ratingSum = ratingSum;
+	}
+
+	public Long getSalesCount() {
+		return salesCount;
+	}
+
+	public void setSalesCount(Long salesCount) {
+		this.salesCount = salesCount;
+	}
+
+	// Computed property for average rating
+	public Double getRatingAverage() {
+		if (ratingCount == null || ratingCount == 0) {
+			return 0.0;
+		}
+		return Math.round((double) ratingSum / ratingCount * 10.0) / 10.0;
 	}
 
 }

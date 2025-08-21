@@ -108,6 +108,18 @@
 			<jsp:include page="include/homeFooter.jsp"></jsp:include>
 			<!----End-Footder---->
 			<script src="<c:url value='/js/client/checkoutAjax.js'/>"></script>
+			<script>
+				// Trigger idempotent sales recording for this order if API is available
+				(function () {
+					var orderId = parseInt('${donhang.id}');
+					if (orderId) {
+						$.ajax({
+							type: 'POST',
+							url: '/mobilestore/api/products/orders/' + orderId + '/record-sales'
+						});
+					}
+				})();
+			</script>
 		</body>
 
 		</html>

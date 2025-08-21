@@ -39,6 +39,11 @@
 
 				</div>
 
+				<div class="content-grids" style="margin-top:24px;">
+					<h4>SẢN PHẨM BÁN CHẠY</h4>
+					<div id="topSellingContainer"></div>
+				</div>
+
 
 
 			</div>

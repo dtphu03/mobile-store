@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -31,7 +32,7 @@ import com.mobilestore.dto.SearchSanPhamObject;
 import com.mobilestore.entities.DanhMuc;
 import com.mobilestore.entities.LienHe;
 import com.mobilestore.entities.NguoiDung;
-import com.mobilestore.entities.ResponseObject;
+import com.mobilestore.dto.response.ResponseObject;
 import com.mobilestore.entities.SanPham;
 import com.mobilestore.service.DanhMucService;
 import com.mobilestore.service.LienHeService;
@@ -58,7 +59,7 @@ public class ClientController {
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+		return nguoiDungService.findByEmailFetchVaiTro(auth.getName());
 	}
 	
 	@ModelAttribute("listDanhMuc")
@@ -91,7 +92,7 @@ public class ClientController {
 	{
 		lh.setNgayLienHe(new Date());
 		lienHeService.save(lh);
-		return new ResponseObject();
+		return new ResponseObject(HttpStatus.OK, "Contact created successfully", null);
 	}
 
 	@GetMapping("/store")
