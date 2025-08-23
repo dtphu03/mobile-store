@@ -61,7 +61,7 @@ $(document).ready(function(){
 							if(i%4==3)
 							{
 								content = section + content + endsection;
-								$('.content-grids').append(content);
+								$('#latestProductsContainer').append(content);
 							}				
 						}
 					}else
@@ -77,7 +77,7 @@ $(document).ready(function(){
 									'<h3></h3>'+
 									'</div>';
 							content = section + content + endsection;
-							$('.content-grids').append(content);
+							$('#latestProductsContainer').append(content);
 						}else
 						{
 							content = content+'<div class="grid_1_of_4 images_1_of_4 products-info"><a href="sp?id='+sanpham.id+'">' +
@@ -88,7 +88,7 @@ $(document).ready(function(){
 									'<h3></h3>'+
 									'</div>';
 							content = section + content + endsection;
-							$('.content-grids').append(content);
+							$('#latestProductsContainer').append(content);
 						}
 					}
 				});

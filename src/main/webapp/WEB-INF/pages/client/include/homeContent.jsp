@@ -36,7 +36,7 @@
 
 				<div class="content-grids">
 					<h4>DANH SÁCH ĐIỆN THOẠI MỚI NHẤT</h4>
-
+					<div id="latestProductsContainer"></div>
 				</div>
 
 				<div class="content-grids" style="margin-top:24px;">
