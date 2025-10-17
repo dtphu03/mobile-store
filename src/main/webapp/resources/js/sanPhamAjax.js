@@ -24,8 +24,11 @@ $(document).ready(function() {
 					                  '<td width="0%">'+'<input type="hidden" id="sanPhamId" value=' + sanPham.id + '>'+ '</td>' + 
 					                  '<td> <button class="btn btn-warning btnChiTiet" style="margin-right: 6px">Chi tiết</button>' ;
 					
-					var checkTenDanhMuc = (sanPham.danhMuc.tenDanhMuc.toLowerCase()).indexOf("Laptop".toLowerCase());
-					sanPhamRow += ( checkTenDanhMuc != -1)?'<button class="btn btn-primary btnCapNhatLapTop" >Cập nhật</button>':'<button class="btn btn-primary btnCapNhatOther" >Cập nhật</button>';
+					var dmLower = (sanPham.danhMuc.tenDanhMuc || '').toLowerCase();
+					var isLaptopCategory = dmLower.indexOf('laptop') !== -1
+										   || dmLower.indexOf('điện thoại') !== -1
+										   || dmLower.indexOf('dien thoai') !== -1;
+					sanPhamRow += isLaptopCategory ? '<button class="btn btn-primary btnCapNhatLapTop" >Cập nhật</button>' : '<button class="btn btn-primary btnCapNhatOther" >Cập nhật</button>';
 					sanPhamRow += '  <button class="btn btn-danger btnXoaSanPham">Xóa</button></td>'+'</tr>';
 					$('.sanPhamTable tbody').append(sanPhamRow);
 				});
@@ -53,11 +56,15 @@ $(document).ready(function() {
 	};
 	
 	// event khi click vào dropdown chọn danh mục thêm sản phẩm
-	$('#danhMucDropdown').mouseup(function() {
+    $('#danhMucDropdown').mouseup(function() {
 		var open = $(this).data("isopen");
 		if (open) {
 			var label = $('#danhMucDropdown option:selected').text();
-			if ((label.toLowerCase()).indexOf("Laptop".toLowerCase()) != -1) {
+            var labelLower = (label || '').toLowerCase();
+            var isLaptopCategory = labelLower.indexOf('laptop') !== -1
+                                   || labelLower.indexOf('điện thoại') !== -1
+                                   || labelLower.indexOf('dien thoai') !== -1; // fallback khi thiếu dấu
+            if (isLaptopCategory) {
 				$('.lapTopModal').modal('show');
 				$("#idDanhMucLaptop").val($(this).val());
 				$('#lapTopForm').removeClass().addClass("addLapTopForm");
@@ -374,10 +381,13 @@ $(document).ready(function() {
 			$('.maSanPham').html("<span style='font-weight: bold'> Mã sản phẩm: </span>"+ sanPham.id);
 			$('.hangSangXuat').html("<span style='font-weight: bold'>Hãng sản xuất: </span>"+ sanPham.hangSanXuat.tenHangSanXuat);
 			
-			var checkTenDanhMuc = (sanPham.danhMuc.tenDanhMuc.toLowerCase()).indexOf("Laptop".toLowerCase());
+			var dmLower = (sanPham.danhMuc.tenDanhMuc || '').toLowerCase();
+			var isLaptopCategory = dmLower.indexOf('laptop') !== -1
+								   || dmLower.indexOf('điện thoại') !== -1
+								   || dmLower.indexOf('dien thoai') !== -1;
 			
-			console.log(checkTenDanhMuc != -1);
-			if(checkTenDanhMuc != -1){
+			console.log(isLaptopCategory);
+			if(isLaptopCategory){
 			  $('.cpu').html("<span style='font-weight: bold'>CPU: </span>"+ sanPham.cpu);
 			  $('.ram').html("<span style='font-weight: bold'>RAM: </span>"+ sanPham.ram);
 			  $('.thietKe').html("<span style='font-weight: bold'>Thiết kế: </span>"+ sanPham.thietKe);
@@ -450,8 +460,11 @@ $(document).ready(function() {
               '<td width="0%">'+'<input type="hidden" id="sanPhamId" value=' + sanPham.id + '>'+ '</td>' + 
               '<td><button class="btn btn-warning btnChiTiet" style="margin-right: 6px">Chi tiết</button>'  ;
 
-              var checkTenDanhMuc = (sanPham.danhMuc.tenDanhMuc.toLowerCase()).indexOf("Laptop".toLowerCase());
-                  sanPhamRow += ( checkTenDanhMuc != -1)?'  <button class="btn btn-primary btnCapNhatLapTop" >Cập nhật</button>':'<button class="btn btn-primary btnCapNhatOther" >Cập nhật</button>';
+			  var dmLower = (sanPham.danhMuc.tenDanhMuc || '').toLowerCase();
+				  var isLaptopCategory = dmLower.indexOf('laptop') !== -1
+										 || dmLower.indexOf('điện thoại') !== -1
+										 || dmLower.indexOf('dien thoai') !== -1;
+				  sanPhamRow += isLaptopCategory ? '  <button class="btn btn-primary btnCapNhatLapTop" >Cập nhật</button>' : '<button class="btn btn-primary btnCapNhatOther" >Cập nhật</button>';
                   sanPhamRow += ' <button class="btn btn-danger btnXoaSanPham">Xóa</button></td>'+'</tr>';
                   $('.sanPhamTable tbody').append(sanPhamRow);
 		  });

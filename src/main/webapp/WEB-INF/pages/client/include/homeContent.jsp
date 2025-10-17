@@ -34,25 +34,23 @@
 					</div>
 				</div>
 
-				<div class="content-grids">
-					<h4>DANH SÁCH ĐIỆN THOẠI MỚI NHẤT</h4>
-					<div id="latestProductsContainer"></div>
-				</div>
-
 				<div class="content-grids" style="margin-top:24px;">
 					<h4>SẢN PHẨM BÁN CHẠY</h4>
 					<div id="topSellingContainer"></div>
 				</div>
 
+				<div class="content-sidebar" style="margin-top:24px;">
+					<h4>Danh mục</h4>
+					<ul id="danhmuc"></ul>
+				</div>
 
+				<div class="content-grids">
+					<h4>DANH SÁCH ĐIỆN THOẠI MỚI NHẤT</h4>
+					<div id="latestProductsContainer"></div>
+				</div>
 
 			</div>
-			<div class="content-sidebar">
-				<h4>Danh mục</h4>
-				<ul id="danhmuc">
 
-				</ul>
-			</div>
 		</div>
 		<div class="clear"> </div>
 		</div>

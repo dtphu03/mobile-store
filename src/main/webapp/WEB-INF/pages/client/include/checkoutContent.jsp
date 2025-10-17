@@ -51,8 +51,8 @@
 					</tr>
 					<c:forEach items="${cart}" var="sanpham">
 						<tr style="text-align: center;">
-							<td>
-								<img src="/mobilestore/img/${sanpham.id}.png" alt="not found img" class="img-responsive fix-size-img">
+							<td style="justify-content: center; align-items: center; display: flex;">
+								<img src="/mobilestore/img/${sanpham.id}.png" alt="not found img" class="img-responsive fix-size-img" style="width: 50%; height: auto;  object-fit: contain;">
 							</td>
 							<td style="color:green">${sanpham.tenSanPham}</td>
 							<td class="donGia">

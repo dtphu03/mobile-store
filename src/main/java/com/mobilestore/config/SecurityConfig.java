@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
+import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,19 +18,19 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private AuthenticationSuccessHandler successHandler;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -40,8 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
 		builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
-	
+
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -49,8 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		    .authorizeRequests()
 		        .antMatchers("/register").permitAll()
 		        .antMatchers("/").permitAll()
+				.antMatchers("/api/chatbot/**").permitAll()
 				.antMatchers("/admin").hasRole("ADMIN")
 				.antMatchers("/shipper").hasRole("SHIPPER")
+				.antMatchers("/chat/**","/api/current-user", "/messages","/messages/latest","/messages/**").authenticated()
+				.antMatchers("/chat/**").permitAll()
 			    .and()
 			.formLogin()
 			    .loginPage("/login")
@@ -67,6 +72,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	            .and()
 			.exceptionHandling().accessDeniedPage("/login?accessDenied");
 	}
-	
-
 }

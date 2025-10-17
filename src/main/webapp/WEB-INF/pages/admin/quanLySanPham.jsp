@@ -31,7 +31,15 @@
 		</div>
 		<hr>
 
-		<form class="form-inline" id="searchForm" name="searchObject">
+		<div class="clearfix">
+			<div class="form-group form-inline pull-right" style="margin-right: 10px;">
+				<input class="form-control" type="text" id="searchById"
+					placeholder="Nhập mã để tìm nhanh">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"
+					style="left: -30px; top:4px;"></span>
+			</div>
+
+			<form class="form-inline" id="searchForm" name="searchObject">
 			<div class="form-group">
 				<select class="form-control" name="danhMucId" id="danhMuc">
 					<c:forEach var="danhMuc" items="${listDanhMuc }">
@@ -70,14 +78,7 @@
 			&nbsp;&nbsp;
 			<button type="button" class="btn btn-primary" id="btnDuyetSanPham">Duyệt
 				sản phẩm</button>
-		</form>
-
-		<div class="form-group form-inline"
-			style="float: right; margin-right: 10px; top: -33px; position: relative;"">
-			<input class="form-control" type="text" id="searchById"
-				placeholder="Nhập mã để tìm nhanh"> <span
-				class="glyphicon glyphicon-search" aria-hidden="true"
-				style="left: -30px; top: 4px;"></span>
+			</form>
 		</div>
 
 		<hr />

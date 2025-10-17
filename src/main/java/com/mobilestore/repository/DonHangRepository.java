@@ -13,12 +13,12 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 
 	public List<DonHang> findByTrangThaiDonHangAndShipper(String trangThai, NguoiDung shipper);
 
-	@Query(value = "select DATE_FORMAT(dh.ngayNhanHang, '%m') as month, "
-			+ " DATE_FORMAT(dh.ngayNhanHang, '%Y') as year, sum(ct.soLuongNhanHang * ct.donGia) as total "
-			+ " from DonHang dh, ChiTietDonHang ct"
-			+ " where dh.id = ct.donHang.id and dh.trangThaiDonHang ='Hoàn thành'"
-			+ " group by DATE_FORMAT(dh.ngayNhanHang, '%Y%m')"
-			+ " order by year asc" )
+    @Query(value = "select MONTH(dh.ngay_nhan_hang) as month, "
+            + " YEAR(dh.ngay_nhan_hang) as year, sum(ct.so_luong_nhan_hang * ct.don_gia) as total "
+            + " from don_hang dh join chi_tiet_don_hang ct on ct.ma_don_hang = dh.id "
+            + " where dh.trang_thai_don_hang = 'Hoàn thành' and dh.ngay_nhan_hang is not null "
+            + " group by YEAR(dh.ngay_nhan_hang), MONTH(dh.ngay_nhan_hang)"
+            + " order by year asc, month asc" , nativeQuery = true)
 	public List<Object> layDonHangTheoThangVaNam();
 	
 	public List<DonHang> findByNguoiDat(NguoiDung ng);

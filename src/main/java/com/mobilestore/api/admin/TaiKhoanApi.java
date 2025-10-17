@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.mobilestore.repository.NguoiDungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -39,6 +41,18 @@ public class TaiKhoanApi {
 
 	@Autowired
 	private VaiTroService vaiTroService;
+
+	@Autowired
+	private NguoiDungRepository nguoiDungRepository;
+
+	@GetMapping("/email/{email}")
+	public ResponseEntity<NguoiDung> getUserByEmail(@PathVariable String email) {
+		NguoiDung nguoiDung = nguoiDungRepository.findByEmail(email);
+		if (nguoiDung != null) {
+			return ResponseEntity.ok(nguoiDung);
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 	@GetMapping("/all")
 	public Page<NguoiDung> getNguoiDungByVaiTro(@RequestParam("tenVaiTro") String tenVaiTro,
